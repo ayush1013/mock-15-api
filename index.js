@@ -20,6 +20,9 @@ app.get("/trips", async(req, res) => {
         query._order === "asc" ? order=1 : order= -1
         const sortTrips = await TripModel.find({query}).sort({[sorted]:order});
         res.send(sortTrips);
+    }else if(query.filter){
+        let filteredData = await TripModel.find({destination:filter})
+        res.send(filteredData);
     }else{
         const allTrips = await TripModel.find({query});
         res.send(allTrips);
