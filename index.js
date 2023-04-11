@@ -37,9 +37,7 @@ app.post("/trips", async(req, res) => {
     try{
         const trip = new TripModel(data);
         await trip.save();
-        const allTrips = await TripModel.find({query});
-        res.send(allTrips);
-        console.log(allTrips)
+        res.send("trip added");
     }catch(err){
         console.log("Couldn't add trip")
     }
