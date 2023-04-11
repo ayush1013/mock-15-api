@@ -20,7 +20,7 @@ app.get("/trips", async (req, res) => {
     let sorted = query._sort;
     let order;
     query._order === "asc" ? (order = 1) : (order = -1);
-    const sortTrips = await TripModel.find({ query }).sort({ [sorted]: order });
+    const sortTrips = await TripModel.find({ budget }).sort({ [sorted]: order });
     res.send(sortTrips);
   } else if (query.filter) {
     let filteredData = await TripModel.find({ destination: filter });
