@@ -16,10 +16,20 @@ app.get("/", (req, res) => {
 app.get("/trips", async (req, res) => {
   const query = req.query;
   console.log(query);
-
-  const allTrips = await TripModel.find();
-  res.send(allTrips);
-  console.log(allTrips);
+  if (query._sort && query._order) {
+    let sorted = query._sort;
+    let order;
+    query._order === "asc" ? (order = 1) : (order = -1);
+    const sortTrips = await TripModel.find({ query }).sort({ [sorted]: order });
+    res.send(sortTrips);
+  } else if (query.filter) {
+    let filteredData = await TripModel.find({ destination: filter });
+    res.send(filteredData);
+  } else {
+    const allTrips = await TripModel.find();
+    res.send(allTrips);
+    console.log(allTrips);
+  }
 });
 
 app.post("/trips", async (req, res) => {
