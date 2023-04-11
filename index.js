@@ -17,7 +17,7 @@ app.get("/trips", async (req, res) => {
   const query = req.query;
   console.log(query);
 
-  const allTrips = await TripModel.find({ query });
+  const allTrips = await TripModel.find();
   res.send(allTrips);
   console.log(allTrips);
 });
